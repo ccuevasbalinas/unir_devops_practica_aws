@@ -1,4 +1,4 @@
-# todo-list-aws v1
+# todo-list-aws v222
 
 Este proyecto contiene un ejemplo de solución **SAM + Jenkins**. Contiene una aplicación API RESTful de libreta de tareas pendientes (ToDo) y los pipelines que permiten definir el CI/CD para productivizarla.
 
