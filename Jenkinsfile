@@ -72,7 +72,7 @@ pipeline{
                             git config -l
                             ls -lsa
                             git checkout master 
-                            git pull origin/master
+                            git pull origin master
                         '''
                             //           
                             //git merge -X oursorigin/develop --no-commit --no-ff 
