@@ -1,4 +1,3 @@
-@ -1,46 +0,0 @@
 pipeline{
     agent any
     stages{
