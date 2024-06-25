@@ -73,6 +73,7 @@ pipeline{
                             git checkout master 
                             git pull origin master        
                             git merge -X ours origin/develop --no-commit --no-ff 
+                            git reset Jenkinsfile
                             git add -u
                             git commit -m "Merged develop into master"
                             git push -u https://${GIT_TOKEN}@github.com/ccuevasbalinas/unir_devops_practica_aws.git master
