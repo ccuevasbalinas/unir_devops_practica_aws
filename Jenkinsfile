@@ -62,7 +62,6 @@ pipeline{
                 }
             }
         }
-        /*
         stage('Promote') {
             steps {
                 script {
@@ -71,16 +70,18 @@ pipeline{
                             git config --global user.name "ccuevasbalinas"
                             git config --global user.email "ccuevasbalinas@gmail.com"
                             git config -l
-                            git checkout master            
-                            git merge -X oursorigin/develop --no-commit --no-ff 
-                            git add -u
-                            git commit -m "Merged develop into master"
-                            git push -u https://${GIT_TOKEN}@github.com/ccuevasbalinas/unir_devops_practica_aws.git master
+                            ls -lsa
+
                         '''
+                            //git checkout master            
+                            //git merge -X oursorigin/develop --no-commit --no-ff 
+                            //git add -u
+                            //git commit -m "Merged develop into master"
+                            //git push -u https://${GIT_TOKEN}@github.com/ccuevasbalinas/unir_devops_practica_aws.git master
                     }
                 }
             }
-        }*/
+        }
 
     }
 }
