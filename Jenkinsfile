@@ -13,18 +13,8 @@ pipeline{
                         sh'''
                             sam build
                             sam validate --config-file samconfig.toml --region us-east-1     
-                        '''
-                                        
-                        //def changes = sh script:'''
-                            //sam deploy --template-file template.yaml --stack-name todo-list-aws-production --capabilities "CAPABILITY_IAM" --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-nqyfysup146f --s3-prefix todo-list-aws --region us-east-1 --parameter-overrides Stage=\"production\"
-                        //''',returnStatus:true
-
-                        //if(changes == 0){
-                            sh '''
-                                sam deploy --template-file template.yaml --stack-name todo-list-aws-production --capabilities "CAPABILITY_IAM" --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-nqyfysup146f --s3-prefix todo-list-aws --region us-east-1 --parameter-overrides Stage=\"production\"
-                            '''
-                        
-                        //}
+                            sam deploy --template-file template.yaml --stack-name todo-list-aws-production --capabilities "CAPABILITY_IAM" --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-nqyfysup146f --s3-prefix todo-list-aws --region us-east-1 --parameter-overrides Stage=\"production\"
+                        '''  
                     }
 
                 }
