@@ -71,9 +71,10 @@ pipeline{
                             git config --global user.email "ccuevasbalinas@gmail.com"
                             git config -l
                             ls -lsa
-
+                            git checkout master 
+                            git pull origin/master
                         '''
-                            //git checkout master            
+                            //           
                             //git merge -X oursorigin/develop --no-commit --no-ff 
                             //git add -u
                             //git commit -m "Merged develop into master"
