@@ -1,6 +1,13 @@
 pipeline{
     agent any
     stages{
+        stage('Get Code'){
+            steps{
+                sh '''curl -O https://raw.githubusercontent.com/ccuevasbalinas/todo-list-aws-config/staging/samconfig.toml'''
+                sh 'ls -lsa'
+                sh 'cat samconfig.toml'
+            }
+        }
         stage('Static Tests'){
             parallel{
                 stage('Flake8'){
@@ -35,9 +42,9 @@ pipeline{
 
                     if(already_deployed!=0){
                         sh'''
-                            sam build
+                            sam build --template-file template.yaml 
                             sam validate --config-file samconfig.toml --region us-east-1   
-                            sam deploy --template-file template.yaml --stack-name todo-list-aws-staging --capabilities "CAPABILITY_IAM" --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-nqyfysup146f --s3-prefix todo-list-aws --region us-east-1 --parameter-overrides Stage=\"staging\"  
+                            sam deploy --template-file template.yaml --config-file samconfig.toml --config-env staging 
                         '''
                     }
                 }
@@ -70,13 +77,14 @@ pipeline{
                             git config --global user.name "ccuevasbalinas"
                             git config --global user.email "ccuevasbalinas@gmail.com"
                             git config -l
-                            git checkout master 
-                            git pull origin master        
-                            git merge -X ours origin/develop --no-commit --no-ff 
+                            git reset samconfig.toml
+                            git checkout master_config 
+                            git pull origin master_config        
+                            git merge -X ours origin/develop_config --no-commit --no-ff 
                             git reset Jenkinsfile
                             git add -u
-                            git commit -m "Merged develop into master"
-                            git push -u https://${GIT_TOKEN}@github.com/ccuevasbalinas/unir_devops_practica_aws.git master
+                            git commit -m "Merged develop into master - Config"
+                            git push -u https://${GIT_TOKEN}@github.com/ccuevasbalinas/unir_devops_practica_aws.git master_config
                         '''
 
                     }
