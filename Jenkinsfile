@@ -1,6 +1,14 @@
 pipeline{
     agent any
     stages{
+        stage('Get Code'){
+            steps{
+                sh 'ls -lsa'
+                sh '''curl -O https://raw.githubusercontent.com/ccuevasbalinas/todo-list-aws-config/production/samconfig.toml'''
+                sh 'ls -lsa'
+                sh 'cat samconfig.toml'
+            }
+        }
         stage('Deploy'){
             steps{
                 script{
@@ -8,13 +16,13 @@ pipeline{
                     def already_deployed = sh(script: '''
                         aws cloudformation describe-stacks --stack-name todo-list-aws-production --region us-east-1
                     ''', returnStatus: true)
-
+                    
                     if(already_deployed!=0){
                         sh'''
-                            sam build
+                            sam build --template-file template.yaml 
                             sam validate --config-file samconfig.toml --region us-east-1     
-                            sam deploy --template-file template.yaml --stack-name todo-list-aws-production --capabilities "CAPABILITY_IAM" --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-nqyfysup146f --s3-prefix todo-list-aws --region us-east-1 --parameter-overrides Stage=\"production\"
-                        '''  
+                            sam deploy --template-file template.yaml --config-file samconfig.toml --config-env production
+                        '''
                     }
 
                 }
